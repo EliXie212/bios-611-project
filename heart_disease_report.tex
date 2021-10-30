@@ -1,0 +1,90 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage[margin=0.75in]{geometry}
+\begin{document}
+\title{BIOS 611 Project Heart Disease Report}
+\author{Z. Xie}
+\date{October 29, 2021}
+\maketitle
+\section{Introduction}
+In this project, our goal is to to accurately predict if a person has heart disease using a regression model with demographic information such as age and medical tests results such as serum cholesterol level. We hope our model can be used as a pre-testing tool for doctors to decide if further medical testing is necessary.\\
+
+Throughout our analysis, we face two major challenges. The first one is to control the false negative rate (fnr) because telling a patient no further test is needed when he/she has heart disease can lead to fatal consequences and is therefore much more costly than false positives. Secondly, we need to limit to size of our model to ensure our model is realistic and interpretable for users such as doctors/patients. If our model is too large or complex, doctors would not be be able verify the model with their domain expertise and therefore the model would not trusted. However, in general, both controlling fnr and reducing model size can make it harder for the model to achieve high accuracy. Therefore, it is critical that we design our model structure and select model features intelligently to deal with these two challenges while moving toward our goal to make accurate predictions.\\
+
+\section{Data Description}
+The dataset we use was from 1988 and consists of four databases: Cleveland, Hungary, Switzerland, and Long Beach V attributed to four doctors: Andras Janosi, M.D (Hungarian Institute of Cardiology. Budapest co), William Steinbrunn, M.D (University Hospital, Zurich, Switzerland), Matthias Pfisterer, M.D (University Hospital, Basel, Switzerlan) and Robert Detrano, M.D. (V.A. Medical Center, Long Beach and Cleveland Clinic Foundation). We chose this dataset because it has both demographics information (age and sex) and medical test results (chest pain type, serum cholesterol level etc.).\\
+
+
+Here is summary of the 14 attributes in the dataset as follows: \\
+1. age:age in years  \\
+2. sex: (1 for male, 0 for female)  \\
+3. cp: chest pain type (4 values)  \\
+4. trestbps: resting blood pressure (in mm Hg on admission to the hospital)  \\
+5. chol: serum cholesterol (in mg/dl)  \\
+6. fbs: fasting blood sugar > 120 mg/dl (1 = true; 0 = false)  \\
+7. restecg: resting electrocardiographic results (values 0,1,2)  \\
+8. thalach: maximum heart rate achieved  \\
+9. exang: exercise induced angina(1 = yes; 0 = no)  \\
+10. oldpeak: ST depression induced by exercise relative to rest  \\
+11. slope: the slope of the peak exercise ST segment(values 0,1,2)  \\
+12. ca: number of major vessels (0-3) colored by flourosopy  \\
+13. thal: 0 = normal; 1 = fixed defect; 2 = reversable defect  \\
+14: Target (response): 0=no heart disease, 1=has heart disease  \\
+
+
+In this dataset, our response variable is target. Prior to performing our data analysis, we randomly selected 0.9 of the data as our training set and 0.1 of the data as our validation set. The rest of 0.1 data will be our test set, which will be used in the end to assess our model's predictive prowess.  \\
+
+\section{EDA}
+First we will perform some basic EDAs using our training set. We only included a corrolgram in our report because it provided the most information for our project while most of other plots are not very informative. \\
+
+\includegraphics[width=0.5\textwidth]{figures/corrgram.png}\\
+
+From the plot, we see the features with the highest correlations with target are oldpeak, ca, exang, slope and thalach. And we also observe there are some highly colinear variables such as oldpeak and slope, However, since our research question focuses on prediction, we will not explicitly deal with this problem in this report. \\
+
+\section{Methodology}
+For this report, we decided to use a logistic regression model and to use forward BIC method to select the most relevant explanatory variables and the interaction terms between two explanatory variables with training set for our final regression model. Then, to find the optimal decision boundary, we used our final regression model to predict the validation set and drew a fpr vs fnr curve using the predictions. The final decision boundary was chosen so that false positive rate (fpr) is minimized while keeping fnr under 0.05, which we chose to be our target fnr.\\
+
+We chose a logistic regression model because our response variable is binary and we chose BIC because it finds the model that maximizes the likelihood of the data (which is closely associated with higher accuracy) while penalizing large models, Therefore it is ideal to deal with the second challenge to limit the model size. We chose forward method because it would be too computationally expensive to perform exhaustive search. Even though forward method doesn't guarantee that we would find the best model, it still finds a model with high performance in general and hence we believe it serves as a valid alternative to exhaustive search. The use of fpr vs fnr plot to find decision boundary is to deal with first challenge of controlling fnr. The reasons for our choice to use 0.05 as fnr cutoff and to use only interactions between two explanatory variables will be discussed in the discussion section.\\
+
+To be finished.\\
+
+
+\section{Discussion}
+Overall our model seems to be performing reasonable well with an overal accuracy around 0.85 and false negative rate (fnr) under 0.02 on the test sets. The false positive rate (fpr) is relatively high at around 0.3, but it is to be expected because our final threshold was chosen to be biased for fnr. However, one can argue that 0.02 fnr is still way too high for our purpose and even more so for 0.05, which we chose to be our target fnr for the model. We admit that our choice is not very well justified but without further guidance from medical professionals, choosing a relatively low control rate seems to be the best available option.\\
+
+
+During feature engineering, we only consider interaction between 2 explanatory variables because we realized using interaction between 3 or more variables would lead the model to overfit the training data. The model achieves a very high test accuracy (~0.97) but the test fnr would stay at 0.06 even with a decision boundary as small as 0.01, which we believe indicates the model overfitted the training data and wasn't able to distinguish a portion of positive cases in test set. \\
+
+Since our primary focus is on prediction, we will discuss the diagnostic plots and model interpretations in the addition work section. \\
+
+
+Going forward, there are several things we can do to improve our current model. First, we can consult medical professionals to gather feedback on our choice of specific parameters (e.g. target fnr at 0.05) and the field-specific criteria/statistical tests used to evaluate models in medical research. In addition, it would be helpful to assess if there's any potential bias in our data set (e.g. are people of color not well represented) by gathering more demographic information and adjust our model accordingly. Last but not the least, we can use ANOVA test to detect if colinear terms are present in our model to improve the stability of our model for better interpretability.\\
+
+\section{Conclusion}
+In conclusion, we believe that our model design tackles the challenges to control fnr and model size well while maintaining a relatively high overall accuracy. We recommend that this model should be used by medical professionals in conjunction with their medical expertise as an indication if more comprehensive tests are needed for people with potentially heart diseases and doctors should refer to full model interpretation part in the additional work section for guidance on how to interpret and use the model.\\
+
+
+
+\section{Reference}
+[1] Source of data: https://www.kaggle.com/johnsmith88/heart-disease-dataset \\
+
+
+
+\section{Addtional Work}
+To be finished\\
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+#
