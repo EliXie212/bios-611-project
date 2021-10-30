@@ -1,6 +1,6 @@
 library(shiny)
 
-heart <- read.csv("heart.csv")
+heart <- read.csv("source_data/heart.csv")
 
 ## List of column name for drop down
 metric_cont <- c("age", "chol", 'trestbps', 'oldpeak')
