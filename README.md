@@ -20,9 +20,6 @@ The data can be found on kaggle:
 https://www.kaggle.com/johnsmith88/heart-disease-dataset
 
 
-Please download the dataset and move the csv file under source_data directory.
-
-
 Using This Project
 ------------------
 You will need Docker. You will need to be able to run docker as your current user.
@@ -50,6 +47,10 @@ The working directory of the project is located at home/rstudio/project. Make su
 you are in the working directory before proceeding by using:
 
 	`cd /home/rstudio/project`
+
+
+
+Please download the dataset from the kaggle and move the csv file under source_data directory.
 
 
 Makefile
