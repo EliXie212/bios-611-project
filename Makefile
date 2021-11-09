@@ -36,5 +36,5 @@ corrgram_gen.R
 ### Shiny Dashboard Generation
 shiny_app:\
 source_data/heart.csv\
-Shiny_vis_temp.R
-	Rscript Shiny_vis_temp.R ${PORT}
+shiny_app.R
+	Rscript shiny_app.R ${PORT}
