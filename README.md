@@ -69,4 +69,5 @@ To build the report, use the following:
 Shiny App
 ---------
 To explore the distributions of different explanatory variables in healthy population
-vs disease population, open the
+vs disease population, open the shiny_app.R file from the files and then click on
+'Run App' button on the upper right corner of the code section.
