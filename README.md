@@ -24,9 +24,10 @@ Using This Project
 ------------------
 You will need Docker. You will need to be able to run docker as your current user.
 
-Installation of docker can be found on this website:
+Instructions on installation of docker can be found here:
 
 Windows: https://docs.docker.com/desktop/windows/install/
+
 Ubuntu: https://docs.docker.com/engine/install/ubuntu/
 
 
