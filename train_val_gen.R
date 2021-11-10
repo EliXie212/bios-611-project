@@ -24,3 +24,5 @@ val_dat <- train.val.dat[split_dummy.2 == 1, ]
 
 write.csv(train_dat, 'derived_data/train_dat.csv')
 write.csv(val_dat, 'derived_data/val_dat.csv')
+write.csv(test_dat, 'derived_data/test_dat.csv')
+write.csv(train.val.dat, 'derived_data/train_val_dat.csv')
