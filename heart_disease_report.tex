@@ -32,36 +32,121 @@ Here is summary of the 14 attributes in the dataset as follows: \\
 14: Target (response): 0=no heart disease, 1=has heart disease  \\
 
 
-In this dataset, our response variable is target. Prior to performing our data analysis, we randomly selected 0.9 of the data as our training set and 0.1 of the data as our validation set. The rest of 0.1 data will be our test set, which will be used in the end to assess our model's predictive prowess.  \\
+In this dataset, our response variable is target. Prior to performing our data
+analysis, we randomly selected 0.9 of the data as our training set and 0.1 of
+the data as our validation set. The rest of 0.1 data will be our test set,
+which will be used in the end to assess our model's predictive prowess.  \\
 
 \section{EDA}
-First we will perform some basic EDAs using our training set. We only included a corrolgram in our report because it provided the most information for our project while most of other plots are not very informative. \\
+First we will perform some basic EDAs using our training set. We only included
+a corrolgram in our report because it provided the most information for
+our project while most of other plots are not very informative. \\
 
 \includegraphics[width=0.5\textwidth]{figures/corrgram.png}\\
 
-From the plot, we see the features with the highest correlations with target are oldpeak, ca, exang, slope and thalach. And we also observe there are some highly colinear variables such as oldpeak and slope, However, since our research question focuses on prediction, we will not explicitly deal with this problem in this report. \\
+From the plot, we see the features with the highest correlations with target
+are oldpeak, ca, exang, slope and thalach. And we also observe
+there are some highly colinear variables such as oldpeak and slope,
+However, since our research question focuses on prediction,
+we will not explicitly deal with this problem in this report. \\
 
 \section{Methodology}
-For this report, we decided to use a logistic regression model and to use forward BIC method to select the most relevant explanatory variables and the interaction terms between two explanatory variables with training set for our final regression model. Then, to find the optimal decision boundary, we used our final regression model to predict the validation set and drew a fpr vs fnr curve using the predictions. The final decision boundary was chosen so that false positive rate (fpr) is minimized while keeping fnr under 0.05, which we chose to be our target fnr.\\
+For this report, we decided to use a logistic regression model and
+to use forward BIC method to select the most relevant explanatory variables
+and the interaction terms between two explanatory variables
+with training set for our final regression model.
+Then, to find the optimal decision boundary,
+we used our final regression model to predict the validation set
+and drew a fpr vs fnr curve using the predictions.
+The final decision boundary was chosen
+so that false positive rate (fpr) is minimized while keeping fnr under 0.05,
+which we chose to be our target fnr.\\
 
-We chose a logistic regression model because our response variable is binary and we chose BIC because it finds the model that maximizes the likelihood of the data (which is closely associated with higher accuracy) while penalizing large models, Therefore it is ideal to deal with the second challenge to limit the model size. We chose forward method because it would be too computationally expensive to perform exhaustive search. Even though forward method doesn't guarantee that we would find the best model, it still finds a model with high performance in general and hence we believe it serves as a valid alternative to exhaustive search. The use of fpr vs fnr plot to find decision boundary is to deal with first challenge of controlling fnr. The reasons for our choice to use 0.05 as fnr cutoff and to use only interactions between two explanatory variables will be discussed in the discussion section.\\
+We chose a logistic regression model because our response variable is binary
+and we chose BIC because it finds the model that maximizes the likelihood
+of the data (which is closely associated with higher accuracy)
+while penalizing large models, Therefore it is ideal
+to deal with the second challenge to limit the model size.
+We chose forward method because it would be too computationally expensive
+to perform exhaustive search. Even though forward method doesn't guarantee that
+we would find the best model, it still finds a model with high performance
+in general and hence we believe it serves as a valid alternative to exhaustive search.
+The use of fpr vs fnr plot to find decision boundary is
+to deal with first challenge of controlling fnr. The reasons for our choice
+to use 0.05 as fnr cutoff and to use only interactions
+between two explanatory variables will be discussed in the discussion section.\\
 
-To be finished.\\
+Using BIC, we decided that the most helpful features for our final model are
+exang, oldpeak, cp, ca, thal, sex, thalach, restecg, ca:thal, oldpeak:ca, cp:ca,
+exang:sex, exang:oldpeak, exang:cp, ca:restecg, oldpeak:sex, cp:thalach (17 in total).
+Many of the features selected by our model also appear to have a high correlation
+with target in the corrolgram during EDA.\\
+
+
+Then to decide on the optimal decision boundary, we used our regression model
+to predict the validation set and drew a tpr vs tnr curve using the predictions:\\
+
+\includegraphics[width=0.5\textwidth]{figures/roc.png}\\
+
+By observing the tpr vs tnr curve, we found that the best fpr
+we can achieve while controlling fnr to be under 0.05
+is around 0.19 when the cutoff is 0.31. The cutoff also happens to be
+the decision boundary that maximizes the overall accuracy.\\
+
+
+Hence we decided that our final model would be a logistical regression model
+with exang, oldpeak, cp, ca, thal, sex, thalach, restecg, ca:thal, oldpeak:ca,
+cp:ca, exang:sex, exang:oldpeak, exang:cp, ca:restecg, oldpeak:sex and cp:thalach
+as our features and 0.31 as the decision boundary.
+We included a summary of the model in the additional work section.\\
+
+Finally we will assess the performance of our model using the test set
+and the our test set accuracy is 0.8431, fpr is 0.2885 and fnr is 0.02.
 
 
 \section{Discussion}
-Overall our model seems to be performing reasonable well with an overal accuracy around 0.85 and false negative rate (fnr) under 0.02 on the test sets. The false positive rate (fpr) is relatively high at around 0.3, but it is to be expected because our final threshold was chosen to be biased for fnr. However, one can argue that 0.02 fnr is still way too high for our purpose and even more so for 0.05, which we chose to be our target fnr for the model. We admit that our choice is not very well justified but without further guidance from medical professionals, choosing a relatively low control rate seems to be the best available option.\\
+Overall our model seems to be performing reasonable well with an overal accuracy
+around 0.85 and false negative rate (fnr) under 0.02 on the test sets.
+The false positive rate (fpr) is relatively high at around 0.3,
+but it is to be expected because our final threshold was chosen
+to be biased for fnr.
+However, one can argue that 0.02 fnr is still way too high for our purpose
+and even more so for 0.05, which we chose to be our target fnr for the model.
+We admit that our choice is not very well justified but without further guidance
+from medical professionals, choosing a relatively low control rate seems
+to be the best available option.\\
 
 
-During feature engineering, we only consider interaction between 2 explanatory variables because we realized using interaction between 3 or more variables would lead the model to overfit the training data. The model achieves a very high test accuracy (~0.97) but the test fnr would stay at 0.06 even with a decision boundary as small as 0.01, which we believe indicates the model overfitted the training data and wasn't able to distinguish a portion of positive cases in test set. \\
+During feature engineering, we only consider interaction between 2 explanatory
+variables because we realized using interaction between 3 or more variables
+would lead the model to overfit the training data. The model achieves a very
+high test accuracy (~0.97) but the test fnr would stay at 0.06 even
+with a decision boundary as small as 0.01, which we believe indicates the model
+overfitted the training data and wasn't able to distinguish a portion of positive
+cases in test set. \\
 
-Since our primary focus is on prediction, we will discuss the diagnostic plots and model interpretations in the addition work section. \\
+Since our primary focus is on prediction, we will discuss the diagnostic plots
+and model interpretations in the addition work section. \\
 
 
-Going forward, there are several things we can do to improve our current model. First, we can consult medical professionals to gather feedback on our choice of specific parameters (e.g. target fnr at 0.05) and the field-specific criteria/statistical tests used to evaluate models in medical research. In addition, it would be helpful to assess if there's any potential bias in our data set (e.g. are people of color not well represented) by gathering more demographic information and adjust our model accordingly. Last but not the least, we can use ANOVA test to detect if colinear terms are present in our model to improve the stability of our model for better interpretability.\\
+Going forward, there are several things we can do to improve our current model.
+First, we can consult medical professionals to gather feedback on our choice
+of specific parameters (e.g. target fnr at 0.05) and the field-specific
+criteria/statistical tests used to evaluate models in medical research.
+In addition, it would be helpful to assess if there's any potential bias
+in our data set (e.g. are people of color not well represented)
+by gathering more demographic information and adjust our model accordingly.
+Last but not the least, we can use ANOVA test to detect if colinear terms are
+present in our model to improve the stability of our model for better interpretability.\\
 
 \section{Conclusion}
-In conclusion, we believe that our model design tackles the challenges to control fnr and model size well while maintaining a relatively high overall accuracy. We recommend that this model should be used by medical professionals in conjunction with their medical expertise as an indication if more comprehensive tests are needed for people with potentially heart diseases and doctors should refer to full model interpretation part in the additional work section for guidance on how to interpret and use the model.\\
+In conclusion, we believe that our model design tackles the challenges to control
+fnr and model size well while maintaining a relatively high overall accuracy.
+We recommend that this model should be used by medical professionals
+in conjunction with their medical expertise as an indication
+if more comprehensive tests are needed for people with potentially heart diseases
+and doctors should refer to full model interpretation part in the additional work
+section for guidance on how to interpret and use the model.\\
 
 
 
