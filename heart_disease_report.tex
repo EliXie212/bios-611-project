@@ -1,6 +1,6 @@
 \documentclass{article}
 \usepackage{graphicx}
-\usepackage[margin=0.75in]{geometry}
+\usepackage[margin=0.75in]{}
 \begin{document}
 \title{BIOS 611 Project Heart Disease Report}
 \author{Z. Xie}
@@ -42,7 +42,7 @@ First we will perform some basic EDAs using our training set. We only included
 a corrolgram in our report because it provided the most information for
 our project while most of other plots are not very informative. \\
 
-\includegraphics[width=0.5\textwidth]{figures/corrgram.png}\\
+\includegraphics[width=0.8\textwidth]{figures/corrgram.png}\\
 
 From the plot, we see the features with the highest correlations with target
 are oldpeak, ca, exang, slope and thalach. And we also observe
@@ -86,7 +86,7 @@ with target in the corrolgram during EDA.\\
 Then to decide on the optimal decision boundary, we used our regression model
 to predict the validation set and drew a tpr vs tnr curve using the predictions:\\
 
-\includegraphics[width=0.5\textwidth]{figures/roc.png}\\
+\includegraphics[width=0.8\textwidth]{figures/roc.png}\\
 
 By observing the tpr vs tnr curve, we found that the best fpr
 we can achieve while controlling fnr to be under 0.05
@@ -156,7 +156,126 @@ section for guidance on how to interpret and use the model.\\
 
 
 \section{Addtional Work}
-To be finished\\
+\subsection{Further details on our final model}
+\subsubsection{Summary of final model}
+
+\input{derived_docs/summary_of_final_model.tex}\\
+
+
+\subsubsection{Diagnostic Plots}
+
+\includegraphics[width=1\textwidth]{figures/diagnostic_plots.png}\\
+
+In residuals vs fitted, we observe the average roughly line up with y=0,
+though we do observe some large negative residuals which is probably a
+result of our choice to biased the model towards reducing false negatives.
+The QQ plot follows a straight line for the most part but the trend disappeared
+towards the left end where the negative residuals are, probably for the same
+reason. In scale vs location, we observe some large residuals values as expected
+after seeing the two previous plots. Interstingly, in all three plots, we observe
+several points with a very large postive residuals and in the residuals vs leverage,
+these points are shown to have very large leverages. We believe these points
+represent patients who don't have heart disease but are very different from
+other healthy patients as measured by the features in our model. These data
+points are probably the cause of the overfitting of three-interaction-term model.
+Therefore, it would be interesting to explore these influential points in our
+future analysis.
+
+\subsection{Other methods attempted}
+Besides BIC, we attempted four other methods to perform variable selection
+including forward AIC, R-squared, Mallow's CP, LASSO regularization and a custom
+method we designed. Besides regression models, we also fitted a 10-layer decision
+tree. For all the models mentioned above, we used the same method to determine
+the optimal decision boundary as our final model: namely we use a fpr vs fnr
+plot and find the boundary that would minimize fpr while keeping the fnr under
+5\%. However, it should be noted that since LASSO and our custom method rely on
+cross validation, we only split the dataset intro training (90\%) and test data
+(10\% and no validation set). Therefore, the fpr vs fnr plot was constructed
+using the fitted values on the training set instead of the predictions of the
+validation set. However, we keep the same random seed to ensure our comparison
+between different models are valid and fair.
+
+
+\subsubsection{Mallow's CP}
+We attempted Mallow's CP because Mallow's CP minimizes the model's residual \
+deviance (which is equvalient with maximizing the likelihood of the data in most
+cases and is closely associated with high accuracy) and therefore seems a valid
+criteria to select the most helpful features.
+
+\includegraphics[width=1\textwidth]{figures/mallow_roc.png}\\
+
+For Mallow's CP, the decision boundary that maximizes te overall accuracy (0.33)
+also keeps the fnr below 5\%.
+
+When tested against the test set, the model achieves an amazing overall accuracy
+of 92.16\%, fpr 13.46\% and fnr 2\%. Although the acccuracy and fpr were
+signficantly improved without increasing the fnr compared to BIC, the Mallow's CP
+selected 46 features and given such a huge model has no interpretability in the
+medical practice, we decided not to use it even with its superior performance.
+
+\subsubsection{Adjusted R-squared}
+We attempted adjusted R-squared because adjusted R-squared directly minimizes
+the model's residual deviance (which is equvalient with maximizing the
+likelihood of the data in most cases and is closely associated with high
+accuracy) while penalizing the larger models and therefore seems a valid
+criteria for feature selection.
+
+\includegraphics[width=1\textwidth]{figures/adjrsq_roc.png}\\
+
+For adjusted R-squared, the decision boundary that maximizes te overall accuracy
+(0.51) also keeps the fnr below 5\%.
+
+When tested against the test set, the model also achieved an amazing overall
+accuracy of 93.14\% and fpr 5.78\%, but the fnr is very high at 8\%. which is
+higher than our control rate. Therefore, even though adjusted R-squared model
+has a reasonable size (only 18 features in total) and higher accuracy, we
+decided to not use it because of the high fnr.
+
+\subsubsection{LASSO}
+We also attempted to fit a LASSO regularized logistic model. LASSO can be a
+valid method because it does feature selection implicitly by minimizing the
+residual deviance (which is closely associated with high accuracy) while
+penalizing large coefficients and forcing many small coefficients to 0. To find
+the best beta (regularization parameter), we used 10-fold cross-validation.
+Cross validation is a valid method to find beta because it finds the beta that
+minimizes the overall residuan deviance.
+
+\includegraphics[width=1\textwidth]{figures/lasso_roc.png}\\
+
+For LASSO, the decision boundary that maximizes te overall accuracy (0.47) also
+keeps the fnr below 5\%.
+
+When tested against the test set, the model achieved the best peformance acrosss
+all the models we attempted with an overall accuracy of 96.1\%,  fpr of 5.77\%
+and the fnr of 2\%. In addition to outperforming our final model in all metrics,
+the decisioon boundary is very close to 0.5, which means the model was able to
+distinguish between positive cases and negative cases without relying on the
+bias towards fnr we introduced by lowering the decision boudary in other models.
+The diagnostic plots also reflected that as we are no long seeing the skewnessed
+in residuals in our final model. However, the LASSO has a fatal flaw: it uses
+84 out 93 features available and LASSO coefficients don't have an intuitive
+interpretation. Moreover, having such a large model made us worry that the model
+is overfitting for this specific dataset. It is possible that the dataset itself
+is biased (e.g. most of white males/females) even though we couldn't confirm
+this without further information. As such, we arrived at the conclusion that we
+should keep BIC as our final method.
+
+
+\subsubsection{Decision Tree}
+In addition to the logitistic regression, we also fitted 10-layer decision tree.
+Decision tree provides an intuitive interpretation, which is a huge advantage
+for our purpose, and we limit our tree to 10 layers to avoid overfitting.
+
+\includegraphics[width=1\textwidth]{figures/tree_roc.png}\\
+
+For the 10-layer decision tree, the decision boundary that maximizes te overall
+accuracy (0.37) also keeps the fnr below 5\%.
+
+When tested against the test set, the model achieved a slightly better overall
+accuracy of 86.27\% and fpr 21.15\%, but the fnr is very high at 6\%. which is
+higher than our control rate. Therefore, even though the decision tree has the
+best interpretability and higher overall accuracy, we choose our final model
+over it because of the high fnr.
 
 \end{document}
 
