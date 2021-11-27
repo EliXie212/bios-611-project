@@ -10,35 +10,12 @@ library(party)
 library(glmnet)
 library(tinytex)
 
-train_dat = read.csv('derived_data/train_dat.csv')
 val_dat = read.csv('derived_data/val_dat.csv')
-test_dat = read.csv('derived_data/test_dat.csv')
 train.val.dat = read.csv('derived_data/train_val_dat.csv')
+test_dat = read.csv('derived_data/test_dat.csv')
 
-
-### Variable selection using BIC
-### Define min and max model
-colnames(train_dat)
-formula.full =formula("target ~ (age + sex + cp + trestbps + chol + fbs + restecg + thalach + exang + oldpeak + slope + ca + thal)^2")
-
-mod.minimal <- glm(target ~ 1, data = train_dat, family = "binomial")
-mod.full <- glm(formula.full, data = train_dat, family = "binomial")
-
-
-
-### BIC
-k_num <- log(nrow(train_dat))
-bic.forward = step(mod.minimal, direction = 'forward',
-                   scope = list(upper = mod.full,
-                                lower = mod.minimal), k = k_num, trace=0)
-
-### Choosing the final model
-final.formula = bic.forward$formula
-final.model <- glm(final.formula, data = train_dat, family = "binomial")
-
-
-#final.formula
-
+final.model <- readRDS("derived_objects/final_model.rds")
+final.formula <- final.model$formula
 
 ### Error criteria helper functions
 ## Calculate false positive rate
