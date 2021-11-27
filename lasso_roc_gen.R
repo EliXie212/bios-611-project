@@ -53,7 +53,7 @@ plot(perf.roc, colorize = T, lwd = 2, cex.lab=0.7)
 abline(a = 0, b = 1)
 abline(a = 0.05, b = 0)
 
-
+## Threshold
 lasso.threshold = 0.47
 
 
