@@ -11,7 +11,7 @@ RUN R -e "install.packages(c(\"shiny\",\"plotly\"))";
 RUN pip3 install jupyter jupyterlab
 RUN R -e "install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 'gbm'));"
 RUN R -e "install.packages(c('pbdZMQ', 'devtools', 'uuid', 'digest', 'corrgram'));"
-RUN R -e "install.packages(c('ROCR', 'pracma', 'party', 'glmnet'));"
+RUN R -e "install.packages(c('ROCR', 'pracma', 'party', 'glmnet', 'texreg'));"
 RUN R -e "install.packages(c('tinytex', 'leaps', 'magrittr', 'reticulate'));"
 RUN R -e "devtools::install_github(\"IRkernel/IRkernel\"); IRkernel::installspec(user=FALSE);"
 RUN R -e "install.packages('RSQLite')";
