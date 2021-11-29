@@ -1,5 +1,6 @@
 .PHONY: clean
 .PHONY: shiny_app
+.PHONY: dash_app
 # SHELL: /bin/bash
 
 ### Clean existing datasets, figures or reports generated in this Makefile for builing
@@ -104,3 +105,10 @@ shiny_app:\
 source_data/heart.csv\
 shiny_app.R
 	Rscript shiny_app.R ${PORT}
+
+
+### Shiny Dashboard Generation
+dash_app:\
+source_data/heart.csv\
+dash_app_heartd.py
+	python3 dash_app_heartd.py ${PORT}
