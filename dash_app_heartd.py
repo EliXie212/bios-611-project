@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 app = dash.Dash(__name__)
 
 # Load data
-heart_dat = pd.read_csv('/home/zhendong/bios611/bios-611-project/source_data/heart.csv')
+heart_dat = pd.read_csv('source_data/heart.csv')
 
 def tsne_processing(dat):
 
@@ -198,4 +198,4 @@ def plot_main_graph(features):
     return _PCA
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(host='0.0.0.0', port=8725, debug=True)
