@@ -77,6 +77,6 @@ Dash App
 ---------
 To visualize 2D PCA and t-SNE clusters with different features with dash app, use the following:
 
-> python3 dash_heartd.py
+> make dash_app
 
 Then following the link returned in the terminal.
