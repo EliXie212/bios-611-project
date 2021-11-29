@@ -72,3 +72,11 @@ Shiny App
 To explore the distributions of different explanatory variables in healthy population
 vs disease population, open the shiny_app.R file from the files and then click on
 'Run App' button on the upper right corner of the code section.
+
+Dash App
+---------
+To visualize 2D PCA and t-SNE clusters with different features with dash app, use the following:
+
+> python3 dash_heartd.py
+
+Then following the link returned in the terminal.
