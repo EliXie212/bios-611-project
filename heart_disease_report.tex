@@ -277,6 +277,20 @@ higher than our control rate. Therefore, even though the decision tree has the
 best interpretability and higher overall accuracy, we choose our final model
 over it because of the high fnr.
 
+\subsubsection{Summary of Methods attempted}
+
+\begin{table}[]
+\begin{tabular}{llllll}
+                   & Num features & Threshold & Test accuracy & Test FPR & Test FNR \\
+AIC                & 92           & 0.01      & 0.971         & 0        & 0.06     \\
+BIC                & 17           & 0.31      & 0.843         & 0.288    & 0.02     \\
+Mallow's CP        & 48           & 0.33      & 0.922         & 0.135    & 0.02     \\
+Adjusted R-squared & 18           & 0.31      & 0.902         & 0.115    & 0.08     \\
+Lasso              & 84           & 0.47      & 0.961         & 0.058    & 0.02     \\
+Decision Tree      & maxdepth=10  & 0.37      & 0.863         & 0.212    & 0.06
+\end{tabular}
+\end{table}
+
 \end{document}
 
 
