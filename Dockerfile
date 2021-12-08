@@ -18,6 +18,7 @@ RUN R -e "devtools::install_github(\"IRkernel/IRkernel\"); IRkernel::installspec
 RUN R -e "install.packages('RSQLite')";
 RUN pip3 install matplotlib plotly bokeh plotnine dplython
 WORKDIR /home/rstudio/project
+RUN ls
 RUN mkdir source_data
 RUN mkdir figures
 RUN mkdir derived_data
