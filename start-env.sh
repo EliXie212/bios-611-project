@@ -1,9 +1,4 @@
 #!/bin/bash
-mkdir source_data
-mkdir figures
-mkdir derived_data
-mkdir derived_docs
-mkdir derived_objects
 
 docker build . -t project-env
 
