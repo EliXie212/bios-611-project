@@ -112,3 +112,12 @@ dash_app:\
 source_data/heart.csv\
 dash_app_heartd.py
 	python3 dash_app_heartd.py ${PORT}
+	
+## Move source data to source_data directory & Create required despository
+source_data/heart.csv
+	mkdir source_data
+	mkdir figures
+	mkdir derived_data
+	mkdir derived_docs
+	mkdir derived_objects
+	mv heart.csv source_data/heart.csv
