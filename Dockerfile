@@ -17,12 +17,4 @@ RUN R -e "install.packages(c('tinytex', 'leaps', 'magrittr', 'reticulate'));"
 RUN R -e "devtools::install_github(\"IRkernel/IRkernel\"); IRkernel::installspec(user=FALSE);"
 RUN R -e "install.packages('RSQLite')";
 RUN pip3 install matplotlib plotly bokeh plotnine dplython
-WORKDIR /home/rstudio/project
-RUN ls
-RUN mkdir source_data
-RUN mkdir figures
-RUN mkdir derived_data
-RUN mkdir derived_docs
-RUN mkdir derived_objects
-RUN mv heart.csv source_data/heart.csv
 
