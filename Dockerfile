@@ -17,6 +17,7 @@ RUN R -e "install.packages(c('tinytex', 'leaps', 'magrittr', 'reticulate'));"
 RUN R -e "devtools::install_github(\"IRkernel/IRkernel\"); IRkernel::installspec(user=FALSE);"
 RUN R -e "install.packages('RSQLite')";
 RUN pip3 install matplotlib plotly bokeh plotnine dplython
+WORKDIR /home/rstudio/project
 RUN mkdir source_data
 RUN mkdir figures
 RUN mkdir derived_data
