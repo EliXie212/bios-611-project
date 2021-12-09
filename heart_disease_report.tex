@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{graphicx}
 \usepackage[margin=0.75in]{}
+\usepackage{float}
 \begin{document}
 \title{BIOS 611 Project Heart Disease Report}
 \author{Z. Xie}
@@ -278,8 +279,7 @@ best interpretability and higher overall accuracy, we choose our final model
 over it because of the high fnr.
 
 \subsubsection{Summary of Methods attempted}
-
-\begin{table}[]
+\begin{table}[H]
 \begin{tabular}{llllll}
                    & Num features & Threshold & Test accuracy & Test FPR & Test FNR \\
 AIC                & 92           & 0.01      & 0.971         & 0        & 0.06     \\
