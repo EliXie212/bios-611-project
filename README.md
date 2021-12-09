@@ -70,13 +70,15 @@ To build the report, use the following:
 Shiny App
 ---------
 To explore the distributions of different explanatory variables in healthy population
-vs disease population, open the shiny_app.R file from the files and then click on
-'Run App' button on the upper right corner of the code section.
+vs disease population with a shiny app, use the following:
+
+	> make shiny_app
+	
 
 Dash App
 ---------
 To visualize 2D PCA and t-SNE clusters with different features with dash app, use the following:
 
-> make dash_app
+	> make dash_app
 
 Then following the link returned in the terminal.
