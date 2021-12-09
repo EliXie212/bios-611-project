@@ -112,3 +112,11 @@ dash_app:\
 source_data/heart.csv\
 dash_app_heartd.py
 	python3 dash_app_heartd.py ${PORT}
+
+source_data/heart.csv:
+	mkdir -p source_data
+	mkdir -p figures
+	mkdir -p derived_data
+	mkdir -p derived_docs
+	mkdir -p derived_objects
+	mv heart.csv source_data/heart.csv
