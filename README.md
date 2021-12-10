@@ -33,21 +33,21 @@ Ubuntu: https://docs.docker.com/engine/install/ubuntu/
 
 To initiate the docker environment, run:
 
-	`./start-env.sh`
+		> ./start-env.sh
 
 Then open an Rstudio instance on port 8787. You can access the instance by going
 to your browser and type:
 
-	`localhost:8787`
+		> localhost:8787
 
 When prompted by Rstudio to enter username and password, enter Rstudio and "hello123".
 
-You can also modified the username and password in the Dockerfile.
+You can also modified the username and password in the start-env.sh.
 
 The working directory of the project is located at home/rstudio/project. Make sure
 you are in the working directory before proceeding by using:
 
-	`cd /home/rstudio/project`
+	> cd /home/rstudio/project
 
 
 
@@ -66,6 +66,7 @@ To build the report, use the following:
 
 	> make pdflatex heart_disease_report.tex
 
+When prompted to asked for file name, hit enter to skip.
 
 Shiny App
 ---------
@@ -73,7 +74,7 @@ To explore the distributions of different explanatory variables in healthy popul
 vs disease population with a shiny app, use the following:
 
 	> make shiny_app
-	
+
 
 Dash App
 ---------
