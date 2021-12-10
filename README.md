@@ -33,12 +33,12 @@ Ubuntu: https://docs.docker.com/engine/install/ubuntu/
 
 To initiate the docker environment, run:
 
-		> ./start-env.sh
+	> ./start-env.sh
 
 Then open an Rstudio instance on port 8787. You can access the instance by going
 to your browser and type:
 
-		> localhost:8787
+	> localhost:8787
 
 When prompted by Rstudio to enter username and password, enter Rstudio and "hello123".
 
