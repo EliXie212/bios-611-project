@@ -22,7 +22,7 @@ https://www.kaggle.com/johnsmith88/heart-disease-dataset
 
 Using This Project
 ------------------
-You will need Docker. You will need to be able to run docker as your current user.
+You will need Docker. You will need to be able to run docker as your current user with permission to read and write files.
 
 Instructions on installation of docker can be found here:
 
