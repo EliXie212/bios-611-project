@@ -9,6 +9,7 @@ clean:
 	rm -f figures/*.png
 	rm -f heart_disease_report.pdf
 	rm -f derived_docs/*
+	rm -f derived_objects/*
 
 ### Report Generation
 heart_disease_report.pdf:\
@@ -16,6 +17,7 @@ heart_disease_report.tex\
 figures/corrgram.png\
 figures/roc.png\
 derived_docs/summary_of_final_model.tex\
+derived_objects/final_model.rds\
 figures/diagnostic_plots.png\
 figures/mallow_roc.png\
 figures/adjrsq_roc.png\
@@ -44,8 +46,8 @@ corrgram_gen.R
 derived_objects/final_model.rds:\
 source_data/heart.csv\
 derived_data/train_dat.csv\
-final_model_summary_gen.R
-	Rscript final_model_summary_gen.R
+final_model_object_gen.R
+	Rscript final_model_object_gen.R
 
 ### Generate Corrgram
 figures/roc.png:\
@@ -119,4 +121,4 @@ source_data/heart.csv:
 	mkdir -p derived_data
 	mkdir -p derived_docs
 	mkdir -p derived_objects
-	mv heart.csv source_data/heart.csv
+	[ -f heart.csv ] && mv heart.csv source_data/heart.csv
