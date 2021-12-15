@@ -8,6 +8,7 @@ This project seeks to analyze a classic public heart disease dataset from a 1988
 understand how this dataset can help us understand the risk indicators/factors associated with heart
 disease and inform diagnostic decisions.
 
+
 ### Dataset
 The dataset we use was from 1988 and consists of four databases: Cleveland,
 Hungary, Switzerland, and Long Beach V attributed to four doctors: Andras
@@ -18,6 +19,10 @@ Janosi, M.D (Hungarian Institute of Cardiology. Budapest co), William Steinbrunn
 The data can be found on kaggle:
 
 https://www.kaggle.com/johnsmith88/heart-disease-dataset
+
+
+### Acknowledgement
+This project started as a three-person team project with Spencer Qu and Suchir Joshi for Stats 151A at UC Berkeley where most of the analysis was done with R markdown. The project is then further developed and modified for reproducibility and better visualization.
 
 
 Using This Project
