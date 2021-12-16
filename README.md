@@ -1,4 +1,4 @@
-BIOS 611 Project
+Heart Disease Rish Factor Analysis (BIOS 611 Fall 2021 Project)
 ===================
 
 -----------------------------
