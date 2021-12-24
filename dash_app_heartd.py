@@ -25,7 +25,7 @@ def tsne_processing(dat):
     dat_c =dat.copy()
 
     tsne = TSNE(n_components=2)
-    X_tsne = tsne.fit_transform(dat_c.iloc[:,:-1])
+    X_tsne = tsne.fit_transform(dat_c)
 
     dat_c['tsne_x'] = X_tsne[:,0]
     dat_c['tsne_y'] = X_tsne[:,1]
@@ -39,7 +39,7 @@ def pca_processing(dat):
     dat_c =dat.copy()
 
     pca = PCA(n_components=2)
-    X_pca = pca.fit_transform(dat_c.iloc[:,:-1])
+    X_pca = pca.fit_transform(dat_c)
 
     dat_c['pca_x'] = X_pca[:,0]
     dat_c['pca_y'] = X_pca[:,1]
